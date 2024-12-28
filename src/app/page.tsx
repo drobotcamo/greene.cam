@@ -14,6 +14,8 @@ export default function Page() {
 
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
+    console.log(Math.min(canvas.width, canvas.height))
+
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
@@ -30,7 +32,7 @@ export default function Page() {
       {angularVelocity: 0.4, radius: 35 , positionRadians: 2.7 * Math.PI / 2},
     ]
 
-    const carrierRing = createCarrierRing(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) - 150, circles)
+    const carrierRing = createCarrierRing(canvas.width / 2, canvas.height / 2, (Math.min(canvas.width, canvas.height) / 2) * 0.8, circles)
 
     const animateStep = (timestamp: DOMHighResTimeStamp) => {
       if (previousTimestamp === undefined) {
