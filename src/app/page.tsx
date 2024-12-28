@@ -30,7 +30,7 @@ export default function Page() {
       {angularVelocity: 0.4, radius: 35 , positionRadians: 2.7 * Math.PI / 2},
     ]
 
-    const carrierRing = createCarrierRing(canvas.width / 2, canvas.height / 2, 200, circles)
+    const carrierRing = createCarrierRing(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) - 150, circles)
 
     const animateStep = (timestamp: DOMHighResTimeStamp) => {
       if (previousTimestamp === undefined) {
