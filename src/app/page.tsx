@@ -1,51 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import {Moon, createCarrierRing} from "@/interfaces/carrierRing";
 
-interface Moon {
-  angularVelocity: number
-  radius: number
-  positionRadians: number
-}
-
-interface CarrierRing {
-  centerX: number
-  centerY: number
-  radius: number
-  moons: Moon[]
-  draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, elapsed: DOMHighResTimeStamp): void
-}
-
-const createCarrierRing = (centerX: number, centerY: number, radius: number, moons: Moon[]): CarrierRing => {
-  return {
-    centerX,
-    centerY,
-    radius,
-    moons,
-    draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, elapsed: DOMHighResTimeStamp) {
-
-      console.log(elapsed)
-
-      ctx.beginPath()
-      ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI)
-      ctx.strokeStyle = '#ffffff'
-      ctx.stroke()
-      ctx.closePath()
-
-      for (const moon of this.moons) {
-        const thisX: number = this.centerX + Math.cos(moon.positionRadians) * this.radius
-        const thisY: number = this.centerY + Math.sin(moon.positionRadians) * this.radius
-
-        ctx.beginPath()
-        ctx.arc(thisX, thisY, moon.radius, 0, Math.PI * 2)
-        ctx.strokeStyle = '#ffffff'
-        ctx.stroke()
-        ctx.closePath()
-
-        // moon.positionRadians += moon.angularVelocity * elapsed
-      }
-    }
-  }
-}
 
 export default function Page() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -67,8 +23,11 @@ export default function Page() {
     const MAX_DELTA_TIME: number = 0.05;
 
     const circles: Moon[] = [
-      {angularVelocity: 0.1, radius: 20 , positionRadians: Math.PI / 2},
-      {angularVelocity: -0.3, radius: 30 , positionRadians: 3 * Math.PI / 2}
+      {angularVelocity: 0.9, radius: 20 , positionRadians: 1.2 * Math.PI / 2},
+      {angularVelocity: -0.7, radius: 30 , positionRadians: 3 * Math.PI / 2},
+      {angularVelocity: 0.6, radius: 10 , positionRadians: 2.0 * Math.PI / 2},
+      {angularVelocity: -0.1, radius: 25 , positionRadians: 1.7 * Math.PI / 2},
+      {angularVelocity: 0.4, radius: 35 , positionRadians: 2.7 * Math.PI / 2},
     ]
 
     const carrierRing = createCarrierRing(canvas.width / 2, canvas.height / 2, 200, circles)
